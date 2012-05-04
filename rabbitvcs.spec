@@ -1,26 +1,32 @@
-Summary:	NautilusSvn - extension for Nautilus which integrates a load of Subversion functionality into the GNOME Nautilus file manager
-Name:		nautilussvn
-Version:	0.12
+Summary:	RabbitVCS - extension for Nautilus which integrates subversion and git functionality into the GNOME Nautilus file manager
+Name:		rabbitvcs
+Version:	0.15.0.5
 Release:	0.1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://nautilussvn.googlecode.com/files/%{name}_%{version}-beta1-2.tar.gz
-# Source0-md5:	1cd6f9d28bfadfe9a6455a9b0a50c9ab
-URL:		http://code.google.com/p/nautilussvn/
-BuildRequires:	eel-devel >= 2.0
+Source0:	http://rabbitvcs.googlecode.com/files/%{name}-%{version}.tar.bz2
+# Source0-md5:	9bf0548557cc803ad2d88f747da1af8a
+URL:		http://rabbitvcs.org/
+#BuildRequires:	eel-devel >= 2.0
 BuildRequires:	nautilus-devel
 BuildRequires:	neon-devel
 BuildRequires:	python-devel
 BuildRequires:	subversion-devel
 Requires:	meld
-Requires:	nautilus-python >= 0.4.3
-Requires:	python-pygtk >= 2.12.1
+Requires:	nautilus-python >= 0.5.0
+Requires:	python-pygtk-gtk >= 2.12.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-NautilusSvn is a Python extension for Nautilus which integrates a load
-of Subversion functionality into the GNOME Nautilus file manager,
-basically as a clone of the TortoiseSVN project on Windows.
+RabbitVCS is a set of graphical tools written to provide simple and
+straightforward access to the version control systems you use.
+Currently, it is integrated into the Nautilus and Thunar file
+managers, the Gedit text editor, and supports Subversion and Git, with
+a goal to incorporate other version control systems as well as other
+file managers.
+
+It is primarily inspired by TortoiseSVN.
+
 %prep
 %setup -q
 
@@ -40,11 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS CREDITS MAINTAINERS README THANKS
-%attr(755,root,root) %{_bindir}/nautilussvn
-%{_libdir}/nautilus/extensions-2.0/python/NautilusSvn.py
+%doc AUTHORS MAINTAINERS README
 %{_iconsdir}/hicolor/scalable/actions/%{name}-*.svg
-%{_iconsdir}/hicolor/scalable/apps/nautilussvn.svg
+%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
+%{_iconsdir}/hicolor/scalable/apps/%{name}-small.svg
 %{_iconsdir}/hicolor/scalable/emblems/emblem-%{name}-*.svg
 %{_datadir}/%{name}
 %{py_sitescriptdir}/%{name}-%{version}*.egg-info
