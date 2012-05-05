@@ -38,6 +38,16 @@ Suggests:	python-gnome-extras-gtkspell
 %description -n nautilus-%{name}
 Graphical frontend as Nautilus plugin
 
+%package -n gedit-plugin-%{name}
+Summary:	Gedit plugin for RabbitVCS
+Group:		X11/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	gedit-plugins
+Suggests:	python-gnome-extras-gtkspell
+
+%description -n gedit-plugin-%{name}
+Gedit plugin for RabbitVCS
+
 %prep
 %setup -q
 
@@ -52,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/%{_datadir}/nautilus-python/extensions/
 install clients/nautilus-3.0/RabbitVCS.py $RPM_BUILD_ROOT/%{_datadir}/nautilus-python/extensions/
+
+install -d $RPM_BUILD_ROOT/%{_libdir}/gedit/plugins/
+install clients/gedit/{%{name}-plugin.py,%{name}.gedit-plugin} $RPM_BUILD_ROOT/%{_libdir}/gedit/plugins/
 
 %find_lang %{name} --all-name
 
@@ -72,3 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -n nautilus-%{name}
 %defattr(644,root,root,755)
 %{_datadir}/nautilus-python/extensions/*.py
+
+%files -n gedit-plugin-%{name}
+%defattr(644,root,root,755)
+%{_libdir}/gedit/plugins/%{name}-plugin.py
+%{_libdir}/gedit/plugins/%{name}.gedit-plugin
