@@ -1,20 +1,20 @@
 Summary:	RabbitVCS - extension for Nautilus which integrates subversion and git functionality into the GNOME Nautilus file manager
 Name:		rabbitvcs
 Version:	0.15.0.5
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://rabbitvcs.googlecode.com/files/%{name}-%{version}.tar.bz2
 # Source0-md5:	9bf0548557cc803ad2d88f747da1af8a
 URL:		http://rabbitvcs.org/
-#BuildRequires:	eel-devel >= 2.0
-BuildRequires:	nautilus-devel
-BuildRequires:	neon-devel
 BuildRequires:	python-devel
 BuildRequires:	subversion-devel
-Requires:	meld
-Requires:	nautilus-python >= 0.5.0
+Requires:	meld >= 1.1.2
+Requires:	python-configobj >= 4.4.0
+Requires:	python-dbus >= 0.80
+Requires:	python-pygobject >= 2.14.1
 Requires:	python-pygtk-gtk >= 2.12.1
+Requires:	python-simplejson
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -27,6 +27,17 @@ file managers.
 
 It is primarily inspired by TortoiseSVN.
 
+%package -n nautilus-%{name}
+Summary:	Nautilus extention for RabbitVCS
+Group:		X11/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	nautilus >= 3.0
+Requires:	nautilus-python >= 0.5.0
+Suggests:	python-gnome-extras-gtkspell
+
+%description -n nautilus-%{name}
+Graphical frontend as Nautilus plugin
+
 %prep
 %setup -q
 
@@ -38,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__python} setup.py install \
 	--root=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT/%{_datadir}/nautilus-python/extensions/
+install clients/nautilus-3.0/RabbitVCS.py $RPM_BUILD_ROOT/%{_datadir}/nautilus-python/extensions/
 
 %find_lang %{name} --all-name
 
@@ -54,3 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 %{py_sitescriptdir}/%{name}-%{version}*.egg-info
 %{py_sitescriptdir}/%{name}
+
+%files -n nautilus-%{name}
+%defattr(644,root,root,755)
+%{_datadir}/nautilus-python/extensions/*.py
