@@ -1,7 +1,7 @@
 Summary:	RabbitVCS - extension for Nautilus which integrates subversion and git functionality into the GNOME Nautilus file manager
 Name:		rabbitvcs
 Version:	0.15.0.5
-Release:	0.2
+Release:	0.3
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://rabbitvcs.googlecode.com/files/%{name}-%{version}.tar.bz2
@@ -64,7 +64,8 @@ install -d $RPM_BUILD_ROOT/%{_datadir}/nautilus-python/extensions/
 install clients/nautilus-3.0/RabbitVCS.py $RPM_BUILD_ROOT/%{_datadir}/nautilus-python/extensions/
 
 install -d $RPM_BUILD_ROOT/%{_libdir}/gedit/plugins/
-install clients/gedit/{%{name}-plugin.py,%{name}.gedit-plugin} $RPM_BUILD_ROOT/%{_libdir}/gedit/plugins/
+install clients/gedit/%{name}-plugin.py $RPM_BUILD_ROOT/%{_libdir}/gedit/plugins/
+install clients/gedit/%{name}.gedit-plugin $RPM_BUILD_ROOT/%{_libdir}/gedit/plugins/%{name}.plugin
 
 %find_lang %{name} --all-name
 
@@ -89,4 +90,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gedit-plugin-%{name}
 %defattr(644,root,root,755)
 %{_libdir}/gedit/plugins/%{name}-plugin.py
-%{_libdir}/gedit/plugins/%{name}.gedit-plugin
+%{_libdir}/gedit/plugins/%{name}.plugin
